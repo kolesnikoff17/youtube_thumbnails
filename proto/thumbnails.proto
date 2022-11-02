@@ -1,0 +1,17 @@
+syntax = "proto3";
+package pb;
+
+option go_package = "./.;pb";
+
+service Thumb {
+  rpc GetThumbnail (ThumbRequest) returns (ThumbResponse);
+}
+
+message ThumbRequest {
+  string id = 1;
+  bool update = 2;
+}
+
+message ThumbResponse {
+  bytes thumb = 1;
+}
