@@ -7,7 +7,7 @@ type (
 	Config struct {
 		Log    Logger     `mapstructure:"logger"`
 		Db     Db         `mapstructure:"db"`
-		Client HttpClient `mapstructure:"http_client"`
+		Client HTTPClient `mapstructure:"http_client"`
 		Grpc   Grpc       `mapstructure:"server"`
 	}
 	// Logger -.
@@ -19,8 +19,8 @@ type (
 		Host string `mapstructure:"host"`
 		Port string `mapstructure:"port"`
 	}
-	// HttpClient -.
-	HttpClient struct {
+	// HTTPClient -.
+	HTTPClient struct {
 		MaxConn int `mapstructure:"max_conn"`
 		IdleTO  int `mapstructure:"idle_timeout"`
 	}

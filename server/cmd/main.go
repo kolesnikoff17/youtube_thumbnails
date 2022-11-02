@@ -10,7 +10,7 @@ import (
 	"thumbs/server/internal/controller/grpcserver"
 	"thumbs/server/internal/usecase"
 	"thumbs/server/internal/usecase/repository"
-	"thumbs/server/internal/usecase/webAPI"
+	"thumbs/server/internal/usecase/webapi"
 	"thumbs/server/pkg/logger"
 	"thumbs/server/pkg/redisdb"
 	"thumbs/server/pkg/webclient"
@@ -32,7 +32,7 @@ func main() {
 	}
 	c := webclient.New(webclient.MaxConn(cfg.Client.MaxConn),
 		webclient.IdleTimeout(time.Duration(cfg.Client.IdleTO)*time.Second))
-	uc := usecase.New(repository.New(db), webAPI.New(c))
+	uc := usecase.New(repository.New(db), webapi.New(c))
 	s := grpcserver.New(uc, l)
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Grpc.Port))
 	if err != nil {

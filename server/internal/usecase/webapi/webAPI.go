@@ -1,4 +1,4 @@
-package webAPI
+package webapi
 
 import (
 	"context"
@@ -9,22 +9,22 @@ import (
 	"thumbs/server/pkg/webclient"
 )
 
-// YtApi implements usecase.ThumbWebAPI
-type YtApi struct {
+// YtAPI implements usecase.ThumbWebAPI
+type YtAPI struct {
 	c *webclient.Conn
 }
 
-var _ usecase.ThumbWebAPI = (*YtApi)(nil)
+var _ usecase.ThumbWebAPI = (*YtAPI)(nil)
 
-// New is a constructor for YtApi
-func New(c *webclient.Conn) *YtApi {
-	return &YtApi{
+// New is a constructor for YtAPI
+func New(c *webclient.Conn) *YtAPI {
+	return &YtAPI{
 		c: c,
 	}
 }
 
 // GetThumbFromAPI return entity.Pic from YouTube API, entity.ErrNotFound if there is no such id
-func (api *YtApi) GetThumbFromAPI(ctx context.Context, id string) (entity.Pic, error) {
+func (api *YtAPI) GetThumbFromAPI(ctx context.Context, id string) (entity.Pic, error) {
 	url := "https://img.youtube.com/vi/" + id + "/0.jpg"
 	res, err := api.c.W.Get(url)
 	if err != nil {
