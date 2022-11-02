@@ -1,0 +1,16 @@
+{
+  "logger": {
+    "lvl": "info"
+  },
+  "db": {
+    "host": "redis",
+    "port": "6379"
+  },
+  "http_client": {
+    "max_conn": 10,
+    "idle_timeout": 3
+  },
+  "server": {
+    "port": 8080
+  }
+}
