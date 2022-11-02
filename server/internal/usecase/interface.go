@@ -7,7 +7,7 @@ import (
 
 // ThumbUseCase is a model layer interface
 type ThumbUseCase interface {
-	GetThumb(ctx context.Context, id string) (entity.Pic, error)
+	GetThumb(ctx context.Context, id string, update bool) (entity.Pic, error)
 }
 
 // ThumbRepo is a repository layer interface

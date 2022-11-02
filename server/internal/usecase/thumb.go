@@ -25,16 +25,18 @@ func New(r ThumbRepo, c ThumbWebAPI) *Thumb {
 
 // GetThumb returns picture. It tries to find it in repo, if there is no one it requests it from an API and put in repo.
 // Returns entity.ErrNotFound if API returns 404
-func (uc *Thumb) GetThumb(ctx context.Context, id string) (entity.Pic, error) {
-	p, err := uc.r.Get(ctx, id)
-	switch {
-	case err == nil:
-		return p, nil
-	case errors.Is(err, entity.ErrNotFound):
-	case err != nil:
-		return entity.Pic{}, err
+func (uc *Thumb) GetThumb(ctx context.Context, id string, update bool) (entity.Pic, error) {
+	if !update {
+		p, err := uc.r.Get(ctx, id)
+		switch {
+		case err == nil:
+			return p, nil
+		case errors.Is(err, entity.ErrNotFound):
+		case err != nil:
+			return entity.Pic{}, err
+		}
 	}
-	p, err = uc.c.GetThumbFromAPI(ctx, id)
+	p, err := uc.c.GetThumbFromAPI(ctx, id)
 	switch {
 	case errors.Is(err, entity.ErrNotFound):
 		return entity.Pic{}, err
