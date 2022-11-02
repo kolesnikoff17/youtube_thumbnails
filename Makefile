@@ -7,4 +7,4 @@ down:
 	docker-compose down
 
 build:
-	go build -o client ./client/cmd/main.go
+	go build -o app client/cmd/main.go
