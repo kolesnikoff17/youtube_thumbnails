@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/go-redis/redis/v8"
 	"thumbs/server/internal/entity"
+	"thumbs/server/internal/usecase"
 	"thumbs/server/pkg/redisdb"
 	"time"
 )
@@ -13,6 +14,8 @@ import (
 type RedisRepo struct {
 	c *redisdb.Conn
 }
+
+var _ usecase.ThumbRepo = (*RedisRepo)(nil)
 
 // New is a constructor for RedisRepo
 func New(c *redisdb.Conn) *RedisRepo {

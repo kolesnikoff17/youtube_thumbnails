@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"thumbs/server/internal/entity"
+	"thumbs/server/internal/usecase"
 	"thumbs/server/pkg/webclient"
 )
 
@@ -12,6 +13,8 @@ import (
 type YtApi struct {
 	c *webclient.Conn
 }
+
+var _ usecase.ThumbWebAPI = (*YtApi)(nil)
 
 // New is a constructor for YtApi
 func New(c *webclient.Conn) *YtApi {

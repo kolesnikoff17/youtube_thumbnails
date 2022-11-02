@@ -25,6 +25,8 @@ type Logger struct {
 	l *zap.SugaredLogger
 }
 
+var _ Interface = (*Logger)(nil)
+
 // New is a Logger constructor
 func New(level string) (*Logger, error) {
 	var l zapcore.Level
