@@ -30,6 +30,7 @@ type (
 	}
 )
 
+// New is a config parser
 func New() (*Config, error) {
 	vp := viper.New()
 	var c Config
@@ -37,6 +38,7 @@ func New() (*Config, error) {
 	vp.SetConfigName("config")
 	vp.SetConfigType("json")
 	vp.AddConfigPath("./server/config")
+	vp.AddConfigPath(".")
 
 	err := vp.ReadInConfig()
 	if err != nil {
