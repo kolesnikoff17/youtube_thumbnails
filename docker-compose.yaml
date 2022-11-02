@@ -4,11 +4,11 @@ services:
     image: "redis:6.2-alpine"
     container_name: "redis"
     restart: unless-stopped
-    ports:
-      - ":6379"
+    expose:
+      - "6379"
     command: redis-server --save 60 5
     volumes:
-      - cache:/data
+      - ./cache:/data
   server:
     image: yt_thumbnails_server
     container_name: yt_thumbnails_server
@@ -18,5 +18,3 @@ services:
       - "8080:8080"
     depends_on:
       - redis
-    env_file:
-      config/config.env

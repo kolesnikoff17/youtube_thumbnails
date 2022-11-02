@@ -10,5 +10,6 @@ FROM alpine AS server
 WORKDIR /yt_thumbnails
 
 COPY --from=builder /build/app .
+COPY ./server/config/config.json .
 
 CMD ["./app"]
