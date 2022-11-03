@@ -28,15 +28,21 @@ func main() {
 	defer conn.Close()
 	c := pb.NewThumbClient(conn)
 	uc := usecase.New(file.New(), c)
-	ctrl := controller.New(uc, cfg.Cli.Update, cfg.Cli.Async)
+	ctrl := controller.New(uc, cfg.Cli)
 
 	ctx, cancel := context.WithCancel(context.Background())
+	done := make(chan struct{})
+
+	interrupt := make(chan os.Signal)
+	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+
 	go func() {
-		interrupt := make(chan os.Signal, 1)
-		defer close(interrupt)
-		signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
-		<-interrupt
-		cancel()
+		ctrl.Exec(ctx, done)
 	}()
-	ctrl.Exec(ctx)
+
+	select {
+	case _ = <-done:
+	case _ = <-interrupt:
+		cancel()
+	}
 }

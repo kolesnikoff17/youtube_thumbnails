@@ -3,7 +3,6 @@ package config
 import (
 	"flag"
 	"github.com/spf13/viper"
-	// flag "github.com/spf13/pflag"
 )
 
 type (

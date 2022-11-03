@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"thumbs/client/config"
 	"thumbs/client/internal/usecase"
 )
 
@@ -12,21 +13,19 @@ import (
 type Cli struct {
 	uc usecase.ThumbUseCase
 
-	upd   bool
-	async bool
+	flags config.Cli
 }
 
 // New is a constructor for Cli
-func New(uc usecase.ThumbUseCase, upd bool, async bool) *Cli {
+func New(uc usecase.ThumbUseCase, flags config.Cli) *Cli {
 	return &Cli{
 		uc:    uc,
-		upd:   upd,
-		async: async,
+		flags: flags,
 	}
 }
 
 // Exec is an entrypoint of business-logic
-func (c *Cli) Exec(ctx context.Context) {
+func (c *Cli) Exec(ctx context.Context, done chan<- struct{}) {
 	ids := c.parseArgs()
 	if ids == nil {
 		log.Fatal("No ids to download")
@@ -39,16 +38,16 @@ func (c *Cli) Exec(ctx context.Context) {
 		for msg := range errChan {
 			fmt.Println(msg)
 		}
+		done <- struct{}{}
 	}()
 
-	if c.async {
-		c.uc.ExecAsync(ctx, ids, c.upd, errChan)
+	if c.flags.Async {
+		c.uc.ExecAsync(ctx, ids, c.flags, errChan)
 	} else {
-		c.uc.ExecSync(ctx, ids, c.upd, errChan)
+		c.uc.ExecSync(ctx, ids, c.flags, errChan)
 	}
 }
 
 func (c *Cli) parseArgs() []string {
-	// flag.Parse()
 	return flag.Args()
 }
