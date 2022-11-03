@@ -13,5 +13,5 @@ type ThumbUseCase interface {
 
 // ThumbFile is an interface for files
 type ThumbFile interface {
-	Create(ctx context.Context, id string, data []byte) error
+	Create(ctx context.Context, id string, data []byte) (string, error)
 }

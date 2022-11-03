@@ -18,7 +18,7 @@ var _ usecase.ThumbFile = (*File)(nil)
 func New() *File { return &File{} }
 
 // Create make new picture
-func (f *File) Create(ctx context.Context, id string, data []byte) error {
+func (f *File) Create(ctx context.Context, id string, data []byte) (string, error) {
 	var s strings.Builder
 	s.Grow(40)
 	s.WriteString("client/thumbs/")
@@ -28,12 +28,12 @@ func (f *File) Create(ctx context.Context, id string, data []byte) error {
 	s.WriteString(".jpg")
 	file, err := os.Create(s.String())
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer file.Close()
 	_, err = file.Write(data)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return s.String(), nil
 }

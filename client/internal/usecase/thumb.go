@@ -62,8 +62,11 @@ func (uc *Thumb) getAndCreate(ctx context.Context, id string, flags config.Cli, 
 		errChan <- fmt.Sprintf("Err \"%s\" with id %s", st.Message(), id)
 		return
 	}
-	err = uc.f.Create(ctx, id, r.GetThumb())
+	name, err := uc.f.Create(ctx, id, r.GetThumb())
 	if err != nil {
 		errChan <- fmt.Sprintf("Err \"Unable to create file\" with id %s", id)
+	}
+	if flags.Verbose {
+		errChan <- fmt.Sprintf("Thumb with id %s saved into %s", id, name)
 	}
 }

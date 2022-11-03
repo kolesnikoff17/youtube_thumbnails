@@ -18,8 +18,9 @@ type (
 	}
 	// Cli -.
 	Cli struct {
-		Update bool
-		Async  bool
+		Update  bool
+		Async   bool
+		Verbose bool
 	}
 )
 
@@ -46,6 +47,8 @@ func New() (*Config, error) {
 		"If enabled, ignores existing cache and gets a fresh version of thumbnail")
 	flag.BoolVar(&c.Cli.Async, "async", false,
 		"If enabled, executes rpc and creates new file concurrently")
+	flag.BoolVar(&c.Cli.Verbose, "verbose", false,
+		"If enabled, prints out all operations, even if it successful")
 	flag.Parse()
 
 	return &c, nil
