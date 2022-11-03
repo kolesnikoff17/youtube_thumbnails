@@ -1,11 +1,14 @@
 package usecase
 
-import "context"
+import (
+	"context"
+	"thumbs/client/config"
+)
 
 // ThumbUseCase is a model layer interface
 type ThumbUseCase interface {
-	ExecSync(ctx context.Context, id []string, update bool, errChan chan<- string)
-	ExecAsync(ctx context.Context, id []string, update bool, errChan chan<- string)
+	ExecSync(ctx context.Context, id []string, flags config.Cli, errChan chan<- string)
+	ExecAsync(ctx context.Context, id []string, flags config.Cli, errChan chan<- string)
 }
 
 // ThumbFile is an interface for files
