@@ -33,7 +33,7 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	done := make(chan struct{})
 
-	interrupt := make(chan os.Signal)
+	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
@@ -41,8 +41,8 @@ func main() {
 	}()
 
 	select {
-	case _ = <-done:
-	case _ = <-interrupt:
+	case <-done:
+	case <-interrupt:
 		cancel()
 	}
 }
