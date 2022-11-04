@@ -23,25 +23,30 @@ for cache is one hour.
 ## How to start
 
 ```bash
-$ make
+make
 ```
 This command creates two containers: gRPC Server on 8080 port and Redis with no exposed port on localhost,
 and compiles client application (```app``` executable in project's root directory).
-To stop containers you can type:
+
+#### To stop containers you can type:
 ```bash
-$ make down
-or
-$ docker-compose down
+make down
 ```
-To run unit tests:
-```bash
-$ make test
 or
-$ go test ./...
-```
-For coverage report:
 ```bash
-$ make report
+docker-compose down
+```
+#### To run unit tests:
+```bash
+make test
+```
+or
+```bash
+go test ./...
+```
+#### For coverage report:
+```bash
+make report
 ```
 but I highly recommend to use Goland IDE for this purpose.
 
@@ -56,7 +61,7 @@ but I highly recommend to use Goland IDE for this purpose.
 ## Example
 
 ```bash
-$ ./app --async --force-update --verbose https://www.youtube.com/watch?v=nviEkurZlao 'youtube.com/watch?v=mMCTX58yZZY' jfBkqXE5qjQ "https://www.youtube.com/watch?v=V2UIOLJCbqU"
+./app --async --force-update --verbose https://www.youtube.com/watch?v=nviEkurZlao 'youtube.com/watch?v=mMCTX58yZZY' jfBkqXE5qjQ "https://www.youtube.com/watch?v=V2UIOLJCbqU"
 ```
 ## Cache
 
