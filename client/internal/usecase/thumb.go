@@ -47,7 +47,7 @@ func (uc *Thumb) ExecAsync(ctx context.Context, id []string, flags config.Cli, e
 }
 
 func (uc *Thumb) getAndCreate(ctx context.Context, id string, flags config.Cli, errChan chan<- string) {
-	id, reqID := "", id
+	id, reqID := "", strings.Trim(id, `"'`)
 	switch {
 	case strings.Contains(reqID, `\?v\=`):
 		_, id, _ = strings.Cut(reqID, `\?v\=`)
